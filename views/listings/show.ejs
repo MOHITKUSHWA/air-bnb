@@ -1,0 +1,107 @@
+<% layout('/layouts/boilerplate') %>
+
+    <body>
+        <div class="row mt-3">
+            <div class="col-8 offset-2 ">
+                <h3>
+                    <%= detail.tital %>
+                </h3>
+                <div class="card card-listing">
+                    <img src="<%= detail.image.url %>" style="width: 18rem;" alt="listing" class="card-img-top">
+                    <p>
+                        <%= detail.tital %>
+                    </p>
+                    <p>
+                        owned by <%= detail.owner.username %>
+                    </p>
+                    <p>
+                        <%= detail.description %>
+                    </p>
+                    <p>
+                        &#8377;<%= detail.price.toLocaleString('en-in') %>
+                    </p>
+                    <p>
+                        <%= detail.location %>
+                    </p>
+                    <p>
+                        <%= detail.country %>
+                    </p>
+                    <div class="row">
+                        <a href="/listing" class="btn btn-dark col-2" style="color:white"> back to page </a>
+                        &nbsp; &nbsp;
+                        <% if (Userstatus && Userstatus._id.equals(detail.owner._id)) { %>
+                            <a href="/listing/<%= detail._id %>/edit" class="btn btn-primary col-2">edit you post</a>
+                            <form action="/listing/<%= detail._id %>?_method=DELETE" method="post" class="col-6">
+                                <button class=" btn add-btn ">delete</button>
+                            </form>
+                            <% } %>
+                    </div>
+                </div>
+                <hr>
+                <div class="">
+                    <% if (Userstatus) { %>
+                        <h4>leave a review</h4>
+                        <form action="/listing/<%= detail._id %>/review" method="post" novalidate
+                            class="needs-validation">
+                            <div class="mb-3 mt-3">
+                                <label for="reating" class="form-label">
+                                    </label>
+                                <fieldset class="starability-slot">
+                                        <legend> Rating:</legend>
+                                        <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                                        <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                                        <label for="first-rate1" title="Terrible">1 star</label>
+                                        <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                                        <label for="first-rate2" title="Not good">2 stars</label>
+                                        <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                                        <label for="first-rate3" title="Average">3 stars</label>
+                                        <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                                        <label for="first-rate4" title="Very good">4 stars</label>
+                                        <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                                        <label for="first-rate5" title="Amazing">5 stars</label>
+                                      </fieldset>
+
+
+                            </div>
+                            <div class="mb-3 ">
+                                <label class="form-label" for="comment">comments</label>
+                                <textarea class="form-control" name="review[comment]" id="comment" cols="30" rows="5"
+                                    required></textarea>
+                                <div class="valid-feedback">comment is good</div>
+                                <div class="invalid-feedback">
+                                    please add some comments for review
+                                </div>
+                            </div>
+                            <button class="btn btn-outline-dark mb-2">submit</button>
+                        </form>
+                        <% } %>
+                            <hr>
+                            <h4>All reviews</h4>
+                            <div class="row">
+                                <% for( review of detail.review) {%>
+                                    <div class="card col-5 ms-3 mb-3">
+                                        <div class="caard-body">
+                                            <h5 class="card-body">
+                                                @<%= review.author.username %>
+                                            </h5>
+                                            <p class="starability-result card-text" data-rating="<%= review.rating %>">
+
+                                            </p>
+                                            <p class="card-text">
+                                                <%= review.comment %>
+                                            </p>
+                                            <% if(Userstatus && Userstatus._id.equals(review.author._id)){ %>
+                                                <form
+                                                    action="/listing/<%= detail._id %>/review/<%= review._id %>?_method=DELETE"
+                                                    method="post">
+                                                    <button class="btn btn-dark mb-2">delete</button>
+                                                </form>
+                                                <% } %>
+                                        </div>
+                                    </div>
+                                    <% } %>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </body>

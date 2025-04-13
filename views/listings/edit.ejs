@@ -1,0 +1,79 @@
+<% layout('/layouts/boilerplate') %>
+
+    <body>
+
+        <div class="row">
+            <div class="col-6 offset-3">
+                <br>
+                <h4>Edit your post</h2>
+                    <form action="/listing/<%= editListing._id %>?_method=put" method="post" novalidate
+                        class="needs-validation" enctype="multipart/form-data">
+                        <div class="mb-3">
+                            <label for="tital" class="form-label">enter your tital:-</label>
+                            <input type="text" id="tital" class="form-control" name="listing[tital]"
+                                placeholder="entet your tital" value="<%= editListing.tital %>" required>
+                            <div class="valid-feedback">tital is good!</div>
+                            <div class="invalid-feedback">
+                                enter a tital..
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="description" class="form-label">enter your description:-</label>
+                            <textarea type="text" id="description" class="form-control" name="listing[description]"
+                                class="form-control" placeholder="enter you description"
+                                required> <%= editListing.description %> </textarea>
+                            <div class="valid-feedback"> description is good!</div>
+                            <div class="invalid-feedback">
+                                enter a valid description.
+                            </div>
+                        </div>
+
+                        <div class="md-3">
+                        <p>Original Listing Image</p>
+                        <img src="<%= editListing.image.url %>" alt="" height="200px" width="200px" >
+                        </div>
+                        <div class="mb-3">
+                            <label for="image" class="form-label">enter yout img link:-</label>
+                            <input type="file" name="listing[image]" id="image" placeholder="enter img link/url"
+                                class="form-control" required>
+                            <div class="valid-feedback">link is good </div>
+                            <div class="invalid-feedback">
+                                enter a img link
+                            </div>
+                        </div>
+                        <div class="row ">
+                            <div class="mb-3 col-md-4">
+                                <label for="price" class="form-label">enter price:-</label>
+                                <input type="number" id="price" class="form-control" placeholder="enter your price"
+                                    name="listing[price]" value="<%= editListing.price %>" required>
+                                <div class="valid-feedback">price is goos!</div>
+                                <div class="invalid-feedback">
+                                    enter a price.
+                                </div>
+                            </div>
+                            <div class="mb-3 col-md-8">
+                                <label for="location" class="form-label">enter your location:-</label>
+                                <input type="text" class="form-control" placeholder="enter your location"
+                                    name="listing[location]" value="<%= editListing.location %>" required>
+                                <div class="valid-feedback">location is good!</div>
+                                <div class="invalid-feedback">
+                                    enter a location.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="country" class="form-label">enter country:-</label>
+                            <input type="text" id="country" class="form-control" placeholder="enter your country"
+                                name="listing[country]" value="<%= editListing.country %>" required>
+                            <div class="valid-feedback">country is valid!</div>
+                            <div class="invalid-feedback">
+                                enter a country.
+                            </div>
+                        </div>
+                        <a href="/listing/<%=editListing._id %>" class="btn"> back to home</a>
+                        <button class="btn btn-dark add-btn">submit</button>
+                    </form>
+            </div>
+        </div>
+    </body>
